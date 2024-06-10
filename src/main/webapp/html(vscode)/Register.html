@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<!-- Html Head /Head -->
+
+
+
+<!--
+<jsp:include page="../Parts/PageUp.jsp"></jsp:include> 
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typhoon</title>
+    <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/slideshow.css">
+    <link rel="stylesheet" href="../css/register.css">
+
+    <script src="../js/script.js"></script>
+
+	
+    <script src="../js/login.js"></script>
+    <script src="../js/signup.js"></script>
+</head>
+
+
+<body 
+onload="onloadMsgSlide('저의 홈페이지를 방문해주셔서 감사합니다.',false)" 
+style="background-image: url(../img/food/nonalc/nicks/img1.jpg); 
+background-size: cover; 
+background-repeat: no-repeat;" 
+class="flowscroll">
+
+<!-- 검색용 제목 -->
+<h1 class="hide"> Jungwoo Shin Personal HomePage</h1>
+
+
+
+
+    
+<!-- 고정부분 -->
+<!--
+<jsp:include page="../Parts/Fixed.jsp"></jsp:include>
+-->
+
+<div class="fixedWrap">
+    <!-- 상단 메시지 출력부분 -->
+        <aside class="top-msg" id="top-msg">
+        <!-- P안에 내용 출력됨 JS함수로 호출 -->
+            <p id="message"></p>
+        </aside>
+    <!--상단바-->
+        <div class="pageSelectWrap">
+
+            <button class="btn pgsel" onclick="toggleNav()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo" href="../View/Home.jsp">
+				<p>>_</p> <i>Jungwoo</i> 
+			</div>
+
+            <button class="btn login-btn" onclick="toggleLogin()">
+                <i class="fa-regular fa-user"></i>
+            </button>
+			
+            <button class="btn home-btn hide" href="../View/Home.jsp">
+				<i class="fa-solid fa-house"></i>
+            </button>
+
+        </div>
+            
+    <!-- 사이드 팝업 메뉴-->
+    <!--
+    <jsp:include page="../Parts/SideBar.jsp"></jsp:include>
+    -->
+<div class="page-select wrap flowscroll shadow" id="page-select">
+
+	<!-- 미구현 div class="usertag login-btn btn" onclick="toggleLogin()"-->
+
+	<div class="usertag">
+		<p class="role" id="role">Guest</p>
+		<p class="user" id="user">Please Login</p>
+	</div>
+	<br>
+	<nav class="permadmin">
+
+		<h3>Admin</h3>
+		<p>(관리자 권한 있을때만 노출됩니다.)</p>
+		<ul>
+			<li><a href="#">-UserManage</a></li>
+			<li><a href="#">-PostManage</a></li>
+			<li><a href="#">-FileStorage</a></li>
+			<li><a href="#">-Notice</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permguest">
+
+		<h3>Guest</h3>
+		<p>(로그인한 사용자 세션일때만 노출됩니다.)</p>
+		<ul>
+			<li><a href="#">-Post</a></li>
+			<li><a href="#">-Food</a></li>
+			<li><a href="#">-Hobbies</a></li>
+			<li><a href="#">-Etc</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permbasic">
+
+		<h3>Jungwoo Shin</h3>
+		<ul>
+			<li><a href="#">-Home</a></li>
+			<li><a href="#">-About</a></li>
+			<li><a href="#">-Projects</a></li>
+			<li><a href="#">-GitHub</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permbasic">
+
+		<h3>Blog</h3>
+		<ul>
+			<li><a href="#">-Workout</a></li>
+			<li><a href="#">-Food</a></li>
+			<li><a href="#">-Hobbies</a></li>
+			<li><a href="#">-Etc</a></li>
+		</ul>
+	</nav>
+</div>
+    
+    
+    <!-- 팝업UI 닫기용 오버레이-->
+        <div class="overlay" id="overlay" onclick="closeLogin(event)"></div>
+    
+    
+    <!-- 로그인 팝업 메뉴-->
+    <!--
+
+    <jsp:include page="../Parts/Login.jsp"></jsp:include>
+    
+    -->
+    
+<div class="login-wrap flowscroll shadow" id="login-wrap">
+	<h2 class="heading">Login</h2>
+	<form class="login-form" id="login-form" onsubmit="submitForm(event)"
+		action="login.jsp" method="post" onclick="event.stopPropagation()">
+		
+		<div class="inputwrap wrap">
+			<label for="loginUsername">Username</label>
+			<div class="inputline wrap">
+				<div class="round notwkbtn">
+					<i class="fa-regular fa-user"></i>
+				</div>
+				<input type="text" id="loginUsername" name="username">
+				<button type="button" class="round btn xbg" onclick="aclear('loginUsername')">
+					<i class="fa-solid fa-eraser"></i>
+				</button>
+			</div>
+			<p class="errmsg"></p>
+		</div>
+		<div class="inputwrap wrap">
+			<label for="loginPassword">Password</label>
+			<div class="inputline wrap">
+
+				<div class="round notwkbtn">
+					<i class="fa-solid fa-key"></i>
+				</div>
+
+				<input type="password" id="loginPassword" name="pw">
+
+				<button type="button" class="round btn " onclick="showpw('loginPassword','pwshow')">
+					<b id="pwshow">Show</b><b>&nbsp</b>
+				</button>
+				
+				&nbsp 
+				<button type="button" class="round btn xbg" onclick="aclear('loginPassword')">
+					<i class="fa-solid fa-eraser"></i>
+				</button>
+			</div>
+			<p class="errmsg"></p>
+		</div>
+
+
+		<div class="submitform wrap">
+			<button class="submitbtn btn" type="submit">Sign in</button>
+			<button type="button" class="clearbtn btn xbg" onclick="clearAllLogin()">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<br> <a href="../View/Register.jsp">Guest Register</a>
+	</form>
+</div>
+    <!-- 스크롤버튼 -->
+    <!--
+ <jsp:include page="../Parts/ScrollBTN.jsp"></jsp:include>
+
+    -->
+<aside>
+	<div class="scrollBtnWrap">
+		<button class="scrollBtn btn round" onclick="scrollToTop()">
+			<i class="fa-solid fa-angle-up"></i>
+		</button>
+		<button class="scrollBtn btn round" onclick="scrollToBottom()">
+			<i class="fa-solid fa-angle-down"></i>
+		</button>
+	</div>
+</aside>
+   </div>
+
+<!-- Main 
+<jsp:include page="../Parts/Main.jsp"></jsp:include>
+-->
+
+<!--BOOKMARK-->
+<section class="Register-wrapper warp">
+	
+	<h2 class="heading">Sign-Up
+		<button class="btn round hbg" href="../View/Home.jsp">
+			<i class="fa-solid fa-house"></i>
+		</button>
+	</h2>
+	<form class="signup-form" id="signup-form" onsubmit="submitForm(event)"
+	action="SignUpProc.jsp" method="post">
+
+	<br>
+	<h2>&nbsp 	# Required</h2>
+
+	<div class="inputwrap wrap">
+		<label for="susername">Username</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-regular fa-user"></i>
+			</div>
+			<input type="text" id="susername" name="username">
+
+			
+			<button type="button" class="round btn" onclick="showpw()">
+				<b id="send">Check</b>
+			</button>
+			&nbsp 
+			<button type="button" class="round btn xbg" onclick="aclear('susername')">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+
+
+	<div class="inputwrap wrap">
+		<label for="signupPW">Password</label>
+		<div class="inputline wrap">
+			
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-key"></i>
+			</div>
+			<input type="password" id="signupPW" name="pw">
+
+			<button type="button" class="round btn " onclick="
+			showpw('signupPW','showSignupPW');
+			showpw('regConPW','showSignupPW');
+			">
+				<b id="showSignupPW">Show</b><b>&nbsp</b>
+			</button>
+			
+			&nbsp 
+			<button type="button" class="round btn xbg" onclick="
+			aclear('signupPW');
+			aclear('regConPW');
+			">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+	
+	<div class="inputwrap wrap">
+		<label for="regConPW">Confirm Password</label>
+		<div class="inputline wrap">
+			
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-check"></i>
+			</div>
+			<input type="password" id="regConPW">
+
+			
+			<button type="button" class="round btn" onclick="confimpw( 'signupPW','regConPW', 'regConPWBTNtext')">
+				<b id="regConPWBTNtext">Check</b>
+			</button>
+			&nbsp 
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+
+	<div class="inputwrap wrap">
+		<label for="password">E-mail</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-at"></i>
+			</div>
+			<input type="text" id="regEmail" name="email">
+
+			<button type="button" class="round btn" onclick="sendVarifyEmail('regEmail','sendVarifyEmail')">
+				<b>&nbsp</b><b id="sendVarifyEmail">Send</b><b>&nbsp</b>
+			</button>
+			&nbsp 
+			<button type="button" class="round btn xbg" onclick="aclear('regEmail')">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+	
+
+	<br>
+	<h2>&nbsp 	# Optional</h2>
+	
+	
+	<div class="inputwrap wrap">
+		<label for="regName">Name</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-user-tag"></i>
+			</div>
+			<input type="text" id="regName" name="name">
+			<button type="button" class="round btn" onclick="aclear('regName')">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+	
+	<div class="inputwrap wrap">
+		<label for="gender">Gender</label>
+		<div class="radioline wrap ">
+			
+			<div class="radiowrap">
+				<label for="Blank">
+					<i class="fa-solid fa-x rdother"></i>
+					<p>Blank</p>
+					<input type="radio" id="Blank" value="" name="gender" checked>
+				</label>
+			</div>
+
+			<div class="radiowrap">
+				<label for="Male">
+					<i class="fa-solid fa-mars rdmale "></i>
+					<p>Male</p>
+					<input type="radio" id="Male" value="Male" name="gender">
+				</label>
+			</div>
+			<div class="radiowrap">
+				<label for="Female"><i class="fa-solid fa-venus rdfemale"></i>
+					<p>Female</p>
+					<input type="radio" id="Female"  value="Female" name="gender">
+					
+				</label>
+			</div>			
+			<div class="radiowrap">
+				<label for="Other">
+					<i class="fa-solid fa-genderless rdother"></i>
+					<p>   Other</p>
+					<input type="radio" id="Other" name="gender">
+				<div class=" wrap hide">
+					<input type="text" id="Other" name="gender">
+				</div>
+				</label>
+			</div>	
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+	
+	<div class="inputwrap wrap">
+		<label for="regPNone">Phone Number 1</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-mobile-button"></i>
+			</div>
+			<input type="text" id="regPNone" name="regPNone">
+
+			<button type="button" class="round btn" onclick="aclear('regPNone')">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+
+	<div class="inputwrap wrap">
+		<label for="regPNtwo">Phone Number 2</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-phone"></i>
+			</div>
+			<input type="text" id="regPNtwo" name="phone2">
+
+			<button type="button" class="round btn" onclick="aclear('regPNtwo')">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+	
+	<div class="inputwrap wrap">
+		<label for="regZip">Address</label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+				<i class="fa-solid fa-house"></i>
+			</div>
+			<input type="text" id="regZip" name="zipcode">
+
+			
+			<button type="button" class="round btn" onclick="showpw()">
+				
+				<i class="fa-regular fa-map"></i>
+			</button>
+			&nbsp 
+
+			<button type="button" class="round btn" 
+			onclick="
+			aclear('regZip')
+			aclear('regAddOne')
+			aclear('regAddTwo')
+			">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+	<div class="inputwrap wrap">
+		<label for="regAddOne">Address1 </label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+			</div>
+			<input type="text" id="regAddOne" name="address1">
+			<div class="round notwkbtn">
+			</div>
+	
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+
+
+	<div class="inputwrap wrap">
+		<label for="regAddTwo">Address2 </label>
+		<div class="inputline wrap">
+			<div class="round notwkbtn">
+			</div>
+			<input type="text" id="regAddTwo" name="address2">
+
+			<div class="round notwkbtn">
+			</div>
+		</div>
+		<p class="errmsg"></p>
+	</div>
+
+
+	<div class="submitform wrap">
+		<button class="submitbtn btn" type="submit">Submit</button>
+		<button type="button" class="clearbtn btn" onclick="clearAll()">
+			<i class="fa-solid fa-eraser"></i>
+		</button>
+	</div>
+
+
+
+
+
+
+</form>
+</section>
+<!-- Footer -->
+<!--
+<jsp:include page="../Parts/Footer.jsp"></jsp:include>
+-->
+<footer>
+	<div>
+		<h2>Jungwoo Shin</h2>
+		<P>Personal HomePage</P>
+		<p>WebDev</p>
+		<P>2024</P>
+	</div>
+
+	<div>
+		<h4>Server</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Dev</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Blog</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Contact</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+</footer>
+
+
+
+
+<!-- /body /html -->
+<!--
+<jsp:include page="../Parts/PageDown.jsp"></jsp:include>
+-->
+</body>
+</html>

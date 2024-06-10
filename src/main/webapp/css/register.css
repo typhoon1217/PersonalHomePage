@@ -1,0 +1,18 @@
+.Register-wrapper{
+    background: var(--main-0);
+    padding: 20px;
+    color: var(--text-0);
+    border-radius: 20px;
+    margin: auto;
+    margin-top:120px ;
+    width: 60%;
+    opacity: 0.9;
+    .heading{
+        display: flex;
+        align-items: center;    
+        justify-content: space-between;
+        i{
+            font-size: 25px;
+        }
+    }
+}

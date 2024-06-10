@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<!-- Html Head /Head -->
+
+
+
+<!--
+<jsp:include page="../Parts/PageUp.jsp"></jsp:include> 
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typhoon</title>
+    <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/slideshow.css">
+
+    <script src="../js/slideshow.js"></script>
+    <script src="../js/script.js"></script>
+</head>
+
+
+<body 
+onload="onloadMsgSlide('반가워요',true)" 
+style="background-image: url(../img/food/nonalc/nicks/img1.jpg); 
+background-size: cover; 
+background-repeat: no-repeat;" 
+class="flowscroll">
+
+<!-- 검색용 제목 -->
+<h1 class="hide"> Jungwoo Shin Personal HomePage</h1>
+
+
+
+
+    
+<!-- 고정부분 -->
+<!--
+<jsp:include page="../Parts/Fixed.jsp"></jsp:include>
+-->
+
+<div class="fixedWrap">
+    <!-- 상단 메시지 출력부분 -->
+        <aside class="top-msg" id="top-msg">
+        <!-- P안에 내용 출력됨 JS함수로 호출 -->
+            <p id="message"></p>
+        </aside>
+    <!--상단바-->
+        <div class="pageSelectWrap">
+            <button class="btn pgsel" onclick="toggleNav()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="logo"></div>
+            <button class="btn login-btn" onclick="toggleLogin()">
+                <i class="fa-regular fa-user"></i>
+            </button>
+        </div>
+            
+    <!-- 사이드 팝업 메뉴-->
+    <!--
+    <jsp:include page="../Parts/SideBar.jsp"></jsp:include>
+    -->
+<div class="page-select wrap flowscroll shadow" id="page-select">
+
+	<!-- 미구현 div class="usertag login-btn btn" onclick="toggleLogin()"-->
+
+	<div class="usertag">
+		<p class="role" id="role">Guest</p>
+		<p class="user" id="user">Please Login</p>
+	</div>
+	<br>
+	<nav class="permadmin">
+
+		<h3>Admin</h3>
+		<p>(관리자 권한 있을때만 노출됩니다.)</p>
+		<ul>
+			<li><a href="#">-UserManage</a></li>
+			<li><a href="#">-PostManage</a></li>
+			<li><a href="#">-FileStorage</a></li>
+			<li><a href="#">-Notice</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permguest">
+
+		<h3>Guest</h3>
+		<p>(로그인한 사용자 세션일때만 노출됩니다.)</p>
+		<ul>
+			<li><a href="#">-Post</a></li>
+			<li><a href="#">-Food</a></li>
+			<li><a href="#">-Hobbies</a></li>
+			<li><a href="#">-Etc</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permbasic">
+
+		<h3>Jungwoo Shin</h3>
+		<ul>
+			<li><a href="#">-Home</a></li>
+			<li><a href="#">-About</a></li>
+			<li><a href="#">-Projects</a></li>
+			<li><a href="#">-GitHub</a></li>
+		</ul>
+	</nav>
+	<br>
+	<nav class="permbasic">
+
+		<h3>Blog</h3>
+		<ul>
+			<li><a href="#">-Workout</a></li>
+			<li><a href="#">-Food</a></li>
+			<li><a href="#">-Hobbies</a></li>
+			<li><a href="#">-Etc</a></li>
+		</ul>
+	</nav>
+</div>
+    
+    
+    <!-- 팝업UI 닫기용 오버레이-->
+        <div class="overlay" id="overlay" onclick="closeLogin(event)"></div>
+    
+    
+    <!-- 로그인 팝업 메뉴-->
+    <!--
+
+    <jsp:include page="../Parts/Login.jsp"></jsp:include>
+    
+    -->
+    
+<div class="login-wrap flowscroll shadow" id="login-wrap">
+	<form class="login-form" id="login-form" onsubmit="submitForm(event)"
+		action="login.jsp" method="post" onclick="event.stopPropagation()">
+		<h2 class="heading">Login</h2>
+		<div class="inputwrap wrap">
+			<label for="username">Username</label>
+			<div class="inputline wrap">
+				<div class="round btn">
+					<i class="fa-regular fa-user"></i>
+				</div>
+				<input type="text" id="username" name="username">
+				<button type="button" class="round btn" onclick="aclear('username')">
+					<i class="fa-solid fa-eraser"></i>
+				</button>
+			</div>
+			<p class="errmsg"></p>
+		</div>
+		<div class="inputwrap wrap">
+			<label for="password">Password</label>
+			<div class="inputline wrap">
+				<button type="button" class="round btn" onclick="showpw()">
+					<i class="fa-solid fa-key"></i>
+				</button>
+				<input type="password" id="password" name="password">
+				<button type="button" class="round btn" onclick="aclear('password')">
+					<i class="fa-solid fa-eraser"></i>
+				</button>
+			</div>
+			<p class="errmsg"></p>
+		</div>
+		<div class="submitform wrap">
+			<button class="submitbtn btn" type="submit">Submit</button>
+			<button type="button" class="clearbtn btn" onclick="clearAll()">
+				<i class="fa-solid fa-eraser"></i>
+			</button>
+		</div>
+		<br> <a href="../View/Register.jsp">Guest Register</a>
+	</form>
+</div>
+    <!-- 스크롤버튼 -->
+    <!--
+ <jsp:include page="../Parts/ScrollBTN.jsp"></jsp:include>
+
+    -->
+<aside>
+	<div class="scrollBtnWrap">
+		<button class="scrollBtn btn round" onclick="scrollToTop()">
+			<i class="fa-solid fa-angle-up"></i>
+		</button>
+		<button class="scrollBtn btn round" onclick="scrollToBottom()">
+			<i class="fa-solid fa-angle-down"></i>
+		</button>
+	</div>
+</aside>
+   </div>
+
+<!-- Main 
+<jsp:include page="../Parts/Main.jsp"></jsp:include>
+-->
+<main>
+	<br>
+	<br>
+	<br>
+	<div class="slideshow-wrap">
+		<div class="slideshow">
+			<div class="slideshow_slides">
+				<a href="#" id="slide1"> <img
+					src="../img/hobb/KakaoTalk_20240608_160355144.jpg" alt="Image 1">
+					<div class="caption">Ski</div>
+				</a> <a href="#" id="slide2"> <img
+					src="../img/hobb/KakaoTalk_20240608_160355144_04.jpg" alt="Image 2">
+					<div class="caption">Aviation</div>
+				</a> <a href="#" id="slide3"> <img
+					src="../img/hobb/KakaoTalk_20240608_160355144_10.jpg" alt="Image 3">
+					<div class="caption">Music</div>
+				</a> <a href="#" id="slide4"> <img
+					src="../img/hobb/KakaoTalk_20240608_160355144_12.jpg" alt="Image 4">
+					<div class="caption">Trip</div>
+				</a>
+			</div>
+		</div>
+		<div class="slideshow_nav">
+			<a href="#" class="prev"><i class="fa-solid fa-chevron-left"></i></a>
+			<div class="indicator">
+				<a href="#" class="active"><i class="fa-solid fa-circle-notch"></i></a>
+				<a href="#"><i class="fa-solid fa-circle-notch"></i></a> <a href="#"><i
+					class="fa-solid fa-circle-notch"></i></a> <a href="#"><i
+					class="fa-solid fa-circle-notch"></i></a>
+			</div>
+			<a href="#" class="next"><i class="fa-solid fa-chevron-right"></i></a>
+		</div>
+	</div>
+	<br>
+	<section class="content-wrapper">
+		<div class="content-box">
+			<h2>Box 1</h2>
+			<img src="../img/hobb/KakaoTalk_20240608_160355144_12.jpg"
+				alt="Image 4">
+			<h3>Trip</h3>
+			<p>Some content for box 1.</p>
+		</div>
+		<div class="content-box">
+			<h2>Box 2</h2>
+			<img src="../img/hobb/KakaoTalk_20240608_160355144_10.jpg"
+				alt="Image 3">
+			<h3>Music</h3>
+			<p>Some content for box 2.</p>
+		</div>
+		<div class="content-box large">
+			<h2>Box 3</h2>
+			<img src="../img/hobb/KakaoTalk_20240608_160355144_04.jpg"
+				alt="Image 2">
+			<h3>Aviation</h3>
+			<p>Some content for box 3.</p>
+		</div>
+		<div class="content-box">
+			<h2>Box 4</h2>
+			<img src="../img/hobb/KakaoTalk_20240608_160355144_12.jpg"
+				alt="Image 4">
+			<h3>Trip</h3>
+			<p>Some content for box 4.</p>
+		</div>
+		<div class="content-box">
+			<h2>Box 5</h2>
+			<img src="../img/hobb/KakaoTalk_20240608_160355144_04.jpg"
+				alt="Image 2">
+			<h3>Aviation</h3>
+			<p>Some content for box 5.</p>
+		</div>
+	</section>
+</main>
+
+<!-- Footer -->
+<!--
+<jsp:include page="../Parts/Footer.jsp"></jsp:include>
+-->
+<footer>
+	<div>
+		<h2>Jungwoo Shin</h2>
+		<P>Personal HomePage</P>
+		<p>WebDev</p>
+		<P>2024</P>
+	</div>
+
+	<div>
+		<h4>Server</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Dev</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Blog</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+
+	<div>
+		<h4>Contact</h4>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+		<p>///////////////////////////</p>
+	</div>
+</footer>
+
+
+
+
+<!-- /body /html -->
+<!--
+<jsp:include page="../Parts/PageDown.jsp"></jsp:include>
+-->
+</body>
+</html>

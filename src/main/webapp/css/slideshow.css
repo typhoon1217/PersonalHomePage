@@ -1,0 +1,109 @@
+
+/* slide show */
+.slideshow {
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slideshow_slides {
+    display: flex;
+    width: 100%; /* 슬라이드 컨테이너의 너비를 슬라이드 개수에 맞게 설정 */
+    height: 100%;
+}
+
+.slideshow_slides a {
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 100%; /* 슬라이드 하나가 부모의 100%를 차지하도록 */
+    height: 100%;
+    position: relative; /* 자식 요소인 캡션을 상대적으로 배치 */
+    overflow: hidden; /* 이미지가 넘치지 않도록 */
+    
+}
+
+/* 이미지 꽉 채우기 */
+.slideshow_slides a img {
+    border-radius: 30px;
+    width: 90%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 컨테이너를 완전히 채우도록 */
+    
+    position: absolute; /* 절대 위치 */
+    left: 5%;
+}
+
+/* 캡션 스타일 */
+.slideshow_slides a .caption {
+    position: absolute; /* 절대 위치 */
+    bottom: 20px; /* 캡션을 이미지의 아래쪽에 배치 */
+    left: 10%;
+    width: auto;
+    background: var(--box-1);
+    color: var(--text-1);
+    text-align: center;
+    padding: 10px 20px; /* 캡션에 약간의 패딩 추가 */
+    font-size: 30px; /* 캡션 폰트 크기 설정 */
+}
+
+/* 네비게이션네브바를 중앙에 배치 */
+.slideshow_nav {
+    background: var(--box-1);
+    color: var(--text-1);
+    border-radius: 60px;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: -80px;
+    margin: auto;
+    text-align: center;
+    height: auto;
+    width: 240px;
+}
+
+
+.slideshow_nav a.prev,
+.slideshow_nav a.next {
+    display: inline-block;
+    padding: 5px;
+    font-size: 24px;
+    color: var(--point-2);
+    
+}
+
+.slideshow_nav a.prev:hover,
+.slideshow_nav a.next:hover {
+    color: var(--main-1);
+    opacity: 0.8;
+}
+
+/* 인디케이터를 슬라이드쇼 아래 중앙위치 배치 */
+.indicator {
+    display: inline-block;
+    
+    cursor: pointer;
+}
+
+
+.indicator a {
+    display: inline-block;
+    padding: 5px;
+    font-size: 24px;
+    color: var(--point-2);
+    
+    cursor: pointer;
+}
+
+
+.indicator a :hover{
+    transform: rotate(90deg);
+    color: var(--main-1);
+    opacity: 0.8;
+}
+
+.indicator a .active {
+    color: var(--main-1);
+    transform: rotate(180deg);
+}
+
+.hide { display: none; }
