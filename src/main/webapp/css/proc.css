@@ -1,0 +1,10 @@
+
+
+.procmainwrap{
+	display:flex;
+	flex-direction:column;
+    justify-content:space-between;
+    padding: 20px;
+    min-height: 50vh;
+    max-height: 90vh;
+}
