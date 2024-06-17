@@ -38,8 +38,6 @@
    	top: 20px; /*  */
     left: 10%;
     width: auto;
-    background: var(--box-1);
-    color: var(--text-1);
     text-align: center;
     padding: 10px 20px; /* 캡션에 약간의 패딩 추가 */
     font-size: 30px; /* 캡션 폰트 크기 설정 */
@@ -50,8 +48,6 @@
 .slideshow_nav {
 	display:flex;
 	justify-content: space-around;
-    background: var(--box-1);
-    color: var(--text-1);
     border-radius: 60px;
     position: relative;
     left: 0;
@@ -69,13 +65,10 @@
     display: inline-block;
     padding: 5px;
     font-size: 24px;
-    color: var(--point-2);
-    
+    opacity: 1;
 }
 
-.slideshow_nav a.prev:hover,
-.slideshow_nav a.next:hover {
-    color: var(--main-1);
+.slideshow_nav a:hover{
     opacity: 0.8;
 }
 
@@ -90,20 +83,19 @@
 .indicator a {
     padding: 5px;
     font-size: 24px;
-    color: var(--point-2);
     cursor: pointer;
+    opacity: 0.4;
 }
 
 
 .indicator a :hover{
     transform: rotate(90deg);
-    color: var(--main-1);
     opacity: 0.8;
 }
 
 .indicator a.active {
-    color: var(--main-1);
     transform: rotate(270deg);
+    opacity: 1;
 }
 
 .hide { display: none; }

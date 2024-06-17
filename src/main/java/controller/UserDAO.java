@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import model.UserVO;
@@ -34,6 +36,33 @@ public class UserDAO {
 		return result;
 	}
 
+	public List<UserVO> getAllUserNamesAndRoles() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<UserVO> userList = new ArrayList<>();
+
+		try {
+			conn = DBPoolUtil.makeConnection();
+			pstmt = conn.prepareStatement("SELECT USER_USERNAME, USER_ROLE FROM USERS");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				UserVO user = new UserVO();
+				user.setUsername(rs.getString("USER_USERNAME"));
+				user.setRole(rs.getString("USER_ROLE"));
+				userList.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("UserDAO getAllUserNamesAndRoles ERROR");
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+
+		return userList;
+	}
+
 	public Vector<ZipCodeVO> zipcodeRead(String dong) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -61,12 +90,12 @@ public class UserDAO {
 		}
 		return vecList;
 	}
-	
-	public String rolecheck(String username) {
+
+	public String getRole(String username) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String role="";
+		String role = "";
 		try {
 			conn = DBPoolUtil.makeConnection();
 			String strQuery = "select USER_ROLE from USERS where USER_USERNAME = ?";
@@ -81,8 +110,100 @@ public class UserDAO {
 		} finally {
 			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
 		}
-		System.out.println("role:"+role);
+		System.out.println("role:" + role);
 		return role;
+	}
+
+	public String getTheme(String username) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String theme = "";
+		try {
+			conn = DBPoolUtil.makeConnection();
+			String strQuery = "select USER_THEME from USERS where USER_USERNAME = ?";
+			pstmt = conn.prepareStatement(strQuery);
+			pstmt.setString(1, username);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				theme = rs.getString("USER_THEME");
+			}
+		} catch (Exception ex) {
+			System.out.println("Exception" + ex);
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+		System.out.println("theme:" + theme);
+		return theme;
+	}
+
+	public String getThemeMode(String username) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String theme = "";
+		try {
+			conn = DBPoolUtil.makeConnection();
+			String strQuery = "select USER_MODE from USERS where USER_USERNAME = ?";
+			pstmt = conn.prepareStatement(strQuery);
+			pstmt.setString(1, username);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				theme = rs.getString("USER_MODE");
+			}
+		} catch (Exception ex) {
+			System.out.println("Exception" + ex);
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+		System.out.println("USER_MODE:" + theme);
+		return theme;
+	}
+
+	public String getUserpic(String username) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String theme = "";
+		try {
+			conn = DBPoolUtil.makeConnection();
+			String strQuery = "select USER_PICTURE from USERS where USER_USERNAME = ?";
+			pstmt = conn.prepareStatement(strQuery);
+			pstmt.setString(1, username);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				theme = rs.getString("USER_PICTURE");
+			}
+		} catch (Exception ex) {
+			System.out.println("Exception" + ex);
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+		System.out.println("USER_PICTURE:" + theme);
+		return theme;
+	}
+
+	public String getwallpaper(String username) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String theme = "";
+		try {
+			conn = DBPoolUtil.makeConnection();
+			String strQuery = "select USER_WALLPAPER from USERS where USER_USERNAME = ?";
+			pstmt = conn.prepareStatement(strQuery);
+			pstmt.setString(1, username);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				theme = rs.getString("USER_WALLPAPER");
+			}
+		} catch (Exception ex) {
+			System.out.println("Exception" + ex);
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+		System.out.println("USER_WALLPAPER:" + theme);
+		return theme;
 	}
 
 	// email dup check
@@ -112,36 +233,37 @@ public class UserDAO {
 	}
 
 	public boolean userInsert(UserVO uvo) {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    boolean flag = false;
-	    try {
-	        conn = DBPoolUtil.makeConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean flag = false;
+		try {
+			conn = DBPoolUtil.makeConnection();
 
-	        String strQuery1 = "INSERT INTO USERS (USER_USERNAME, USER_PW, USER_EMAIL, USER_NAME, USER_GENDER, USER_PHONE1, USER_PHONE2, USER_ZIPCODE, USER_ADDRESS1, USER_ADDRESS2, USER_ROLE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Guest')";
-	        pstmt = conn.prepareStatement(strQuery1);
-	        pstmt.setString(1, uvo.getUsername());
-	        pstmt.setString(2, uvo.getPw());
-	        pstmt.setString(3, uvo.getEmail());
-	        pstmt.setString(4, uvo.getName());
-	        pstmt.setString(5, uvo.getGender());
-	        pstmt.setString(6, uvo.getPhone1());
-	        pstmt.setString(7, uvo.getPhone2());
-	        pstmt.setString(8, uvo.getZipcode());
-	        pstmt.setString(9, uvo.getAddress1());
-	        pstmt.setString(10, uvo.getAddress2());
-	        // pstmt.setString(11, "Guest"); // This line is not needed since 'Guest' is hardcoded in the query
+			String strQuery1 = "INSERT INTO USERS (USER_USERNAME, USER_PW, USER_EMAIL, USER_NAME, USER_GENDER, USER_PHONE1, USER_PHONE2, USER_ZIPCODE, USER_ADDRESS1, USER_ADDRESS2, USER_ROLE, USER_THEME) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'guest', 'default_theme')";
+			pstmt = conn.prepareStatement(strQuery1);
+			pstmt.setString(1, uvo.getUsername());
+			pstmt.setString(2, uvo.getPw());
+			pstmt.setString(3, uvo.getEmail());
+			pstmt.setString(4, uvo.getName());
+			pstmt.setString(5, uvo.getGender());
+			pstmt.setString(6, uvo.getPhone1());
+			pstmt.setString(7, uvo.getPhone2());
+			pstmt.setString(8, uvo.getZipcode());
+			pstmt.setString(9, uvo.getAddress1());
+			pstmt.setString(10, uvo.getAddress2());
+			// pstmt.setString(11, "Guest"); // This line is not needed since 'Guest' is
+			// hardcoded in the query
 
-	        int count = pstmt.executeUpdate();
-	        if (count > 0)
-	            flag = true;
-	    } catch (Exception ex) {
-	        System.out.println("Exception: " + ex);
-	    } finally {
-	        DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
-	    }
-	    return flag;
+			int count = pstmt.executeUpdate();
+			if (count > 0)
+				flag = true;
+		} catch (Exception ex) {
+			System.out.println("Exception: " + ex);
+		} finally {
+			DBPoolUtil.dbReleaseClose(rs, pstmt, conn);
+		}
+		return flag;
 	}
 
 //	public String loadRole (String id) {
@@ -222,7 +344,7 @@ public class UserDAO {
 
 				vo.setAddress1(rs.getString("USER_ADDRESS1"));
 				vo.setAddress2(rs.getString("USER_ADDRESS2"));
-				vo.setPw(rs.getString("USER_ROLE"));
+				vo.setRole(rs.getString("USER_ROLE"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

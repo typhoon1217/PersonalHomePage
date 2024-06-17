@@ -2,66 +2,52 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-String utf8encMsg = "";
-String url = "";
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-String loginUserName = (String) session.getAttribute("loginUserName");
-if (loginUserName == null) {
-	utf8encMsg = URLEncoder.encode("로그인 세션이 만료되었습니다.", "UTF-8");
-	url = "../View/Register.jsp?msg=" + utf8encMsg;
-	response.sendRedirect(url);
-}
-String role = (String) session.getAttribute("role ");
-//if(role ==null)role  = "ERROR";
-%>
-<div class="login-wrap flowscroll shadow" id="login-wrap">
+<c:choose>
+	<c:when test="${not empty userpic and not empty loginUserName}">
+		<c:set var="userPicURL"
+			value="../img/users/${loginUserName}/USER/userpic/${userpic}.jpg" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="userPicURL" value="../img/default/userpic/userpic.jpg" />
+	</c:otherwise>
+</c:choose>
 
-	<div class="heading">
-		<div class="notwkbtn round "></div>
-		<%
-		out.print(loginUserName);
-		%>
+<div class="login-wrap flowscroll wrap cbg blur" id="login-wrap">
+
+	<div class="heading gbg ">
+		<div class="notwkbtn round obg"></div>
+		${loginUserName}
 		<button class="btn login-btn round xbg " onclick="toggleLogin()">
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 	</div>
 
-	<section class="sectionUserpic">
-		<div class="userpicwrap">
-			<img class="userpic"
-				src="../img/hobb/KakaoTalk_20240608_160355144_04.jpg"
-				alt="User Image">
+	<div class="fwrap flowscroll h320 vbg semiround margt10">
+		<section class="sectionUserpic trcbg fors200200">
+			<div class="userpicwrap s200200">
+				<img class="userpic s200200" src='${userPicURL}' alt="User Image">
+
+				<a class="wrapConhead btn nbg"> ${loginUserName}</a>
+			</div>
+		</section>
+		<div class="fwrapc">
+			<div>
+				<a class=" btn  heading hbg" onclick=""> <b>Account Setting</b>
+				</a>
+		
+				<c:url var="EditUserInformationUrl" value="../View/Home.jsp">
+					<c:param name="pageReq" value="EditUserInformation" />
+					<c:param name="msg" value="사용자 정보 수정" />
+				</c:url>
+				<a class=" btn   obg" href="${EditUserInformationUrl}"> Edit Account Information</a> 
+				<a class=" btn   obg" onclick=""> My Postings </a> <a
+					class=" btn   obg" onclick=""> Direct Message </a> <a
+					class=" btn   obg" onclick=""> Change Theme </a>
+			</div>
 		</div>
-	</section>
-	<h4 class="box">admin</h4>
-	<div class="btnflexwrap">
-
-		<button class="btn login-btn round  " onclick="">Delete Users</button>
-
-		<button class="btn login-btn round  nbg" onclick="">Setting</button>
-		<button class="btn login-btn round  nbg" onclick="">Delete
-			Users</button>
-		<button class="btn login-btn round  nbg" onclick="">Edit
-			Users</button>
 	</div>
-
-	<h4 class="box">User</h4>
-
-	<div class="btnflexwrap">
-		<button class="btn login-btn round  nbg" onclick="">My
-			Postings</button>
-		<button class="btn login-btn round  nbg" onclick="">Direct
-			Message</button>
-		<button class="btn login-btn round  nbg" onclick="">Account
-			Setting</button>
-		<button class="btn login-btn round  nbg" onclick="">Delete
-			Account</button>
-		<a class="btn login-btn round  hbg"
-			href="../View/EditUserInformation.jsp">Edit User Information</a> <a
-			class="btn login-btn round xbg " href="../Proc/LogoutProc.jsp">Log
-			out</a>
-	</div>
-
-
+	<a class="heading btn login-btn  xbg margt10"
+		href="../Proc/LogoutProc.jsp"> Log Off </a>
 </div>

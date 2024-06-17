@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<footer>
+<footer class="blur sad">
 	<div>
 		<h2>Jungwoo Shin</h2>
 		<P>Personal HomePage</P>

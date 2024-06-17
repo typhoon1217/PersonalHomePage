@@ -3,10 +3,10 @@
 
 <aside>
 	<div class="scrollBtnWrap">
-		<button class="scrollBtn btn round" onclick="scrollToTop()">
+		<button class="scrollBtn btn sad cbg round" onclick="scrollToTop()">
 			<i class="fa-solid fa-angle-up"></i>
 		</button>
-		<button class="scrollBtn btn round" onclick="scrollToBottom()">
+		<button class="scrollBtn btn sad cbg round" onclick="scrollToBottom()">
 			<i class="fa-solid fa-angle-down"></i>
 		</button>
 	</div>

@@ -1,17 +1,19 @@
-/*
-function onloadMsgSlide(msg, slide) {
-	
-    toggleLogin();
-    if (slide) {
-        call_ss_js();
+function onload(){
+	 try {call_ss_js()    } catch (error) {
+        console.log("slideerrornoslide");
     }
-    showMessage(msg);
-}
-*/
+    
+	
+};
 
-// 상단 메시지 표시
+// showMessage function
 function showMessage(message) {
+    console.log("showMessage called with message:", message); // Debug log
     let topMsg = document.getElementById('top-msg');
+    if (!topMsg) {
+        console.error("Element with ID 'top-msg' not found.");
+        return;
+    }
     topMsg.textContent = message;
     topMsg.classList.add('show');
     setTimeout(() => {
@@ -53,11 +55,18 @@ function toggleNav() {
 function toggleList(btnID,listID) {
     const btn = document.getElementById(btnID);
     const listquery = document.getElementById(listID);
-    listquery.classList.toggle('hide');
+    listquery.classList.toggle('toglist');
     btn.classList.toggle('fa-chevron-down');
     btn.classList.toggle('fa-chevron-up');
 }
 
+function toggleList2(btnID,listID) {
+    const btn = document.getElementById(btnID);
+    const listquery = document.getElementById(listID);
+    listquery.classList.toggle('toglist');
+    btn.classList.toggle('fa-chevron-down');
+    btn.classList.toggle('fa-chevron-up');
+}
 
 
 // 로그인 토글 함수

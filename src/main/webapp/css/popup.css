@@ -1,9 +1,7 @@
 
 
 .popupwrap{
-	background: var(--main-0);
     padding: 20px;
-    color: var(--text-0);
     border-radius: 20px;
     
     margin:3px;
@@ -18,8 +16,4 @@
         background-color: transparent;
     }
     }
-    
-	a:hover{
-    color: var(--text-ht);
-}
 }

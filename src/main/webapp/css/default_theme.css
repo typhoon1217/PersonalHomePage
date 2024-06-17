@@ -1,0 +1,26 @@
+:root {
+ 	--text-0: #33ccabd2;
+     --text-1: #ffffff80;
+     --text-1t: #ffffff;
+    --text-2: #000000;
+    --text-2t: #00000080;
+    --text-x: #ff4848c7;
+    --text-h: #375bff;
+
+    
+    --point-0: #7e7e7e80;
+    --point-1: #42f8d180;
+    --point-2: #47ffd480;
+    --point-x: #ff474780;
+    --point-h: #4164ff80;
+
+    --main-0: #dddddd;
+    --main-1: #2dffd5;
+    --main-2: #3affc4;
+    --main-x: #fca9a9;
+    --main-h: #bbc7ff;
+
+    --box-1: #7bffe280;
+    --box-2: #ffffff80;
+    --box-3: #1a1a1a80;
+}

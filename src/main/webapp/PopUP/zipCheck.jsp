@@ -5,6 +5,10 @@
 <%@page import="model.ZipCodeVO"%>
 <jsp:useBean id="dao" class="controller.UserDAO" />
 <%
+String theme = (String) session.getAttribute("theme");
+if (theme == null)
+	theme = "default_theme";
+
 request.setCharacterEncoding("UTF-8");
 
 String check = request.getParameter("check");
@@ -22,10 +26,10 @@ int totalList = zipcodeList.size();
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<link rel="stylesheet" href="../css/style.css?ver1212">
-<link rel="stylesheet" href="../css/popup.css">
+<link rel="stylesheet" href="../css/<%=theme%>.css?ver2323">
+<link rel="stylesheet" href="../css/style.css?ver2322223">
+<link rel="stylesheet" href="../css/popup.css?ver2323">
 
-<script src="../js/login.js"></script>
 
 <script>
 	function dongCheck() {
@@ -50,14 +54,14 @@ int totalList = zipcodeList.size();
 	style="background-image: url(../img/food/nonalc/nicks/img1.jpg); background-size: cover; background-repeat: no-repeat;"
 	class="flowscroll">
 	<br>
-	<section class="popupwrap wrap">
-		<h1 class="heading">Search Address</h1>
-		<hr>
-		<div class="box">
+	<section class="popupwrap vbg wrap">
+		<h1 class="heading obg sad">Search Address</h1>
+
+		<div class="box sad">
 
 			<form name="zipForm" method="post" action="zipCheck.jsp">
-				<div class="inputwrap wrap">
-					<div class="inputline wrap">
+				<div class="inputwrap">
+					<div class="inputline sad">
 
 						<div class="round notwkbtn">
 							<i class="fa-solid fa-house"></i>
@@ -78,54 +82,58 @@ int totalList = zipcodeList.size();
 					</div>
 			</form>
 
-			<input type="hidden" name="check" value="n">
-			
-			<table class="flowscroll">
 
-				<!-- 3 -->
-				<%
-				if (check.equals("n")) {
-				%>
-				<%
-				if (zipcodeList.isEmpty()) {
-				%>
-				<tr>
-					<td align="center"><br />검색된 결과가 없습니다.</td>
-				</tr>
-				<%
-				} else {
-				%>
-				<tr>
-					<td align="center"><br /> ※검색 후, 아래 우편번호를 클릭하면 자동으로 입력됩니다.</td>
-				</tr>
-				<%
-				for (int i = 0; i < totalList; i++) {
-					ZipCodeVO vo = zipcodeList.elementAt(i);
-					String tempZipcode = vo.getZipcode();
-					String tempSido = vo.getSido();
-					String tempGugun = vo.getGugun();
-					String tempDong = vo.getDong();
-					String tempBunji = vo.getBunji();
-					if (tempBunji == null)
-						tempBunji = " ";
-				%>
-				<tr>
-					<td><a
-						href="javascript:sendAddress('<%=tempZipcode%>','<%=tempSido%>'
+			<div class="flowscroll max60vh">
+				<input type="hidden" name="check" value="n">
+				<table>
+
+					<!-- 3 -->
+					<%
+					if (check.equals("n")) {
+					%>
+					<%
+					if (zipcodeList.isEmpty()) {
+					%>
+					<tr>
+						<td align="center"><br />검색된 결과가 없습니다.</td>
+					</tr>
+					<%
+					} else {
+					%>
+					<tr>
+						<td align="center"><br /> ※검색 후, 아래 우편번호를 클릭하면 자동으로 입력됩니다.</td>
+					</tr>
+					<%
+					for (int i = 0; i < totalList; i++) {
+						ZipCodeVO vo = zipcodeList.elementAt(i);
+						String tempZipcode = vo.getZipcode();
+						String tempSido = vo.getSido();
+						String tempGugun = vo.getGugun();
+						String tempDong = vo.getDong();
+						String tempBunji = vo.getBunji();
+						if (tempBunji == null)
+							tempBunji = " ";
+					%>
+					<tr>
+						<td><a
+							href="javascript:sendAddress('<%=tempZipcode%>','<%=tempSido%>'
 					,'<%=tempGugun%>','<%=tempDong%>','<%=tempBunji%>')">
-							<%=tempZipcode%>&nbsp;<%=tempSido%>&nbsp;<%=tempGugun%> &nbsp;<%=tempDong%>&nbsp;<%=tempBunji%></a><br>
-						<%
-						} //end for
-						} //end else
-						%> <%
+								<%=tempZipcode%>&nbsp;<%=tempSido%>&nbsp;<%=tempGugun%> &nbsp;<%=tempDong%>&nbsp;<%=tempBunji%></a><br>
+							<%
+							} //end for
+							} //end else
+							%> <%
  }
  %></td>
-				</tr>
-			</table>
+					</tr>
+				</table>
 
-			<br> <a class="btn round" href="#"
-				onClick="javascript:self.close()">Close</a>
+			</div>
+
+
+			<br>
 		</div>
+		<a class="btn xbg sad" href="#" onClick="javascript:self.close()">Close</a>
 	</section>
 </body>
 </html>
